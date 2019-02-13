@@ -138,15 +138,15 @@ public class Dishes {
           ingredient = (!ingredient.isEmpty() ? ingredient
               : ERR_EMPTY_INGREDIENT);
           Set<String> tmpSet = null;
-          if (smap.containsKey(ingredient)) { // O(1)
+          if (smap.containsKey(ingredient)) { // O(logn)
             // already have a set
-            tmpSet = smap.get(ingredient); // O(1)
-            tmpSet.add(aDish); // O(1)
+            tmpSet = smap.get(ingredient); // O(logn)
+            tmpSet.add(aDish); // O(logn)
           } else {
             // need to create a set
             tmpSet = new TreeSet<String>(); // alpha-sort order
             tmpSet.add(aDish); // O(1)
-            smap.put(ingredient, tmpSet); // O(1)
+            smap.put(ingredient, tmpSet); // O(logn)
           }
         }
       }
@@ -172,7 +172,7 @@ public class Dishes {
    * @return
    */
   String[] createRowTree(String ingredientKey, Map<String, Set<String>> map) {
-    Set<String> dishSet = map.get(ingredientKey); // O(1)
+    Set<String> dishSet = map.get(ingredientKey); // O(logn)
     String[] dishArr = dishSet.toArray(new String[dishSet.size()]);
     String[] row = new String[1 + dishArr.length];
     row[0] = ingredientKey;
